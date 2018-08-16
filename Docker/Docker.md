@@ -1,4 +1,6 @@
-# Docker-compose
+Docker Compose
+==============
+![Docker Compose](composelogo.png?raw=true "Docker Compose Logo")
 
 Compose is a tool for defining and running multi-container Docker applications.
 This tool is mainly targeted for testing and developent workflows.
