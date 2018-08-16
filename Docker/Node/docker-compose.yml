@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  
+  # redis
+  redis:
+    image: "redis:alpine"
+  
+  # Elastic + Logstash + Kibana, elastic oss is more lightweight
+  elastic:
+    image: "elk:cors" # this image does not exist in docker hub, docker-compose will use the Dockerfile of build to create it
+    build: "elastic/."
+    ports:
+     - "9201:9200"
+     - "9301:9300"
+     - "5045:5044"
+     - "5602:5601"
+    volumes:
+       - ./data/elastic:/var/lib/elasticsearch
+       - ./logs/elastic:/var/log/elasticsearch
+  
+  # Main app
+  app:
+    image: "app:${VERSION}"
+    build:
+      context: ../. #we need the source code, so we must go up one folder
+      dockerfile: docker/app/Dockerfile
+    ports:
+     - "3001:3000" # express
+     - "8080:8080" # websocket
+    volumes:
+       - ./logs/server:/usr/src/app/logs
+    user: node
