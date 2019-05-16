@@ -49,6 +49,11 @@ docker-compose stop (single service name)
 docker-compose rm (single service name)
 ```
 
+**Remove unused images (intermediate images will be deleted, use some grep filter)**
+```
+grep -vf <(sudo docker ps -a | awk '{printf "%s\n", $2}') <(sudo docker images | awk '{printf "%s:%s\n", $1,$2}') | tail -n +2 | xargs sudo docker rmi -f 
+```
+
 
 **Remove stopped service containers & volumes**
 ```
