@@ -63,5 +63,6 @@ docker-compose rm -v (single service name)
 **Get all logs from whole app**
 ```
 docker-compose logs -f -t
+docker-compose logs -f --tail
 ```
 
